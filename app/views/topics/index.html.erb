@@ -1,5 +1,6 @@
 <%= link_to "Add Topic", new_topic_path%>
 <h3>List of Topics </h3>
+<hr/>
 <% @topics.each do |topic| %>
   <strong><%= topic.name%> </strong>
       <%if current_user.is_following_topic?(topic)%>
@@ -10,5 +11,5 @@
   <br/>
   <br/>
 <% end %>
-
+<hr/>
 <%= link_to "Back", root_path%>

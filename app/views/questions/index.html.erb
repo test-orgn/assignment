@@ -1,16 +1,20 @@
-<%= link_to "Follow Users", users_path%>
-<%= link_to "Follow Topics, topics_path"%>
+<%= link_to "Follow Users", users_path %>
+<%= link_to "Follow Topics", topics_path, class: 'm-l-10' %>
 <hr/>
-<%= link_to "Add Question", new_question_path%>
+<%= link_to "Add Question", new_question_path, class: 'm-l-10'%>
 </br>
 
 <h3> Questions </h3>
 <hr/>
 <% @questions.all.each do |question|%>
   </br>
-  <strong><%=question.question%></strong>
-  &nbsp; <%= link_to "View", question_path(question)%>
-  </br>
+  <span class='m-b-10'>
+
+    <strong><%=question.question%></strong>
+
+    &nbsp; <%= link_to "View", question_path(question)%>
+  </span>
+  </br> 
   By <%= link_to question.user.email, user_path(question.user)%>
   At <%= question.created_at.strftime("%d/%m/%y - %H:%M:%S")%>
   <h5> Answers  (<%= question.answers.count %>) </h5>
@@ -18,6 +22,7 @@
     <%= answer.answer %>
      By 
     <%= link_to answer.user == current_user ? "You" : answer.user.email, user_path(answer.user)%>
+    &nbsp;
     At : <%= answer.created_at.strftime("%d/%m/%y - %H:%M:%S") %>
     <%if current_user && answer.user == current_user%>
       </br>

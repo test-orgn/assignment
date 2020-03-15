@@ -1,12 +1,15 @@
-<h3> <%= @user.email%> </h3>
-<%if @user!= current_user%>
-    <%if current_user.is_following?(@user)%>
-        <%= link_to "Un Follow", unfollow_users_path(following_id: @user.id, follower_id: current_user.id), method: :post %>
-    <%else%>
-        <%= link_to "Follow", follow_users_path(following_id: @user.id, follower_id: current_user.id), method: :post %>      
-    <%end%>
-    <br/>
-<%end%>
+<h2> Profile </h2>
+<h3> 
+  <%= @user.email%> 
+  <%if @user!= current_user%>
+      <%if current_user.is_following?(@user)%>
+          <%= link_to "Un Follow", unfollow_users_path(following_id: @user.id, follower_id: current_user.id), method: :post %>
+      <%else%>
+          <%= link_to "Follow", follow_users_path(following_id: @user.id, follower_id: current_user.id), method: :post %>      
+      <%end%>
+      <br/>
+  <%end%>
+</h3>
 <br>
 <%= link_to "Followers (#{@user.followers.count})", user_followers_path(@user)%>
 &nbsp;&nbsp;&nbsp;
