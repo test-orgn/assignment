@@ -1,0 +1,14 @@
+<%= link_to "Add Topic", new_topic_path%>
+<h3>List of Topics </h3>
+<% @topics.each do |topic| %>
+  <strong><%= topic.name%> </strong>
+      <%if current_user.is_following_topic?(topic)%>
+        <%= link_to "Un Follow", unfollow_topics_path(user_id: current_user.id, topic_id: topic.id), method: :post %>
+      <%else%>
+        <%= link_to "Follow", follow_topics_path(user_id: current_user.id, topic_id: topic.id), method: :post %>      
+      <%end%>
+  <br/>
+  <br/>
+<% end %>
+
+<%= link_to "Back", root_path%>

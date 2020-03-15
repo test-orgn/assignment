@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quara</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <div class="session">
+    <% if user_signed_in? %>
+      <li>
+        <%= link_to('Logout', destroy_user_session_path, method: :delete) %>  
+      </li>
+      <li>
+        <%= link_to current_user.email, user_path(current_user)%>     
+
+      </li>
+      <% else %>
+      <li>
+      <%= link_to('Login', new_user_session_path) %>  
+      </li>
+    <% end %>
+  </div>
+  <% flash.each do |type, msg| %>
+    <div class="alert alert-info">
+      <%= msg %>
+    </div>
+  <% end %>
+    <%= yield %>
+  </body>
+</html>

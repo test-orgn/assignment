@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: apple
+  password: apple
+  host: localhost # If the DB is setup on local machine then use: localhost
+  # adapter: postgresql
+  # encoding: unicode
+  # pool: 11
+development:
+  <<: *default
+  database: quara-development
+test:
+  <<: *default
+  database: quara-test #test_16_dec
+production:
+  <<: *default
+  database: quara-production

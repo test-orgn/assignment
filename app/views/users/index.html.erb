@@ -1,0 +1,16 @@
+<h3>List of Users </h3>
+<% @users.each do |user| %>
+  <%= user.email%>
+    <% if current_user != user %>
+      <%if current_user.is_following?(user)%>
+        <%= link_to "Un Follow", unfollow_users_path(following_id: user.id, follower_id: current_user.id), method: :post %>
+      <%else%>
+        <%= link_to "Follow", follow_users_path(following_id: user.id, follower_id: current_user.id), method: :post %>      
+      <%end%>
+    <%end%>
+  
+  <br/>
+  <br/>
+<% end %>
+
+<%= link_to "Back", root_path%>

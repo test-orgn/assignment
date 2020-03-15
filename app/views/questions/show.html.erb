@@ -1,0 +1,63 @@
+</br>
+  <strong>
+    <%=@question.question%>
+    <%if current_user == @question.user%>
+      &nbsp;
+      <%= link_to "Edit", edit_question_path(@question) %>
+ 
+      &nbsp;
+      <%= link_to "Remove", question_path(@question), method: :delete  %>
+    <% end %>
+  </strong>
+  </br>
+  created by <%= link_to @question.user == current_user ? "You" : @question.user.email, user_path(@question.user)%>
+
+  <h5> Answers  (<%= @question.answers.count %>)</h5>
+  <% @question.answers.each do |answer|%>
+    <div class="answer">
+      <div class='answer-detail'>
+        <%= answer.answer %> </br>
+        <span class='m-l-5'>
+          By 
+          <%= link_to answer.user == current_user ? "You" : answer.user.email, user_path(answer.user)%>
+          at : <%= answer.created_at.strftime("%d/%m/%y - %H:%M:%S") %>
+        </span>
+          <%if current_user && answer.user == current_user%>
+          </br>
+          <%= link_to "Edit", "javascript:void(0)", class: 'edit-answer'%>
+
+          <%= link_to "Remove", question_answer_path(@question, answer, from: 'view'), method: :delete %>
+        <%end%>
+        </br></br>
+      </div>
+      <div class='answer-edit-form hide'>
+        <%= form_for [@question, answer] do |f|%>
+          <%= f.text_area :answer %>
+          <%= hidden_field_tag :from, 'question' %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+    </div>
+
+  <%end%>
+  
+  <h5> Add your answer</h5>
+  <%= form_for [@question, @question.answers.build] do |ans| %>
+    <%= ans.text_field :answer%>
+    <%= ans.hidden_field :user_id, value: current_user.id %>
+    <%= ans.hidden_field :question_id, value: @question.id %>
+    <%= ans.hidden_field :from, value: 'view' %>
+    <%= ans.submit "Save" %>
+  <% end %>
+  <hr/>
+
+  <%= link_to "Back", questions_path %>
+
+<script>
+    $(document).on('ready', function(){
+      $('.edit-answer').on('click', function(){
+        $(this).parent('.answer-detail').siblings('.answer-edit-form').removeClass('hide');
+        $(this).parent('.answer-detail').addClass('hide');
+      })
+    })
+</script>

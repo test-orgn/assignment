@@ -1,0 +1,43 @@
+<h3> <%= @user.email%> </h3>
+<%if @user!= current_user%>
+    <%if current_user.is_following?(@user)%>
+        <%= link_to "Un Follow", unfollow_users_path(following_id: @user.id, follower_id: current_user.id), method: :post %>
+    <%else%>
+        <%= link_to "Follow", follow_users_path(following_id: @user.id, follower_id: current_user.id), method: :post %>      
+    <%end%>
+    <br/>
+<%end%>
+<br>
+<%= link_to "Followers (#{@user.followers.count})", user_followers_path(@user)%>
+&nbsp;&nbsp;&nbsp;
+<%= link_to "Followings (#{@user.followings.count})", user_followings_path(@user)%>
+<hr>
+<h4> Questions of users (<%= @user.questions.count %>) <h4>
+
+<% @user.questions.each do |q|%>
+    <%=link_to q.question, question_path(q)%>
+    <br>
+    <br>
+<%end%>
+
+<hr/>
+
+<h4> Answers of users  (<%= @user.answers.count %>) <h4>
+
+<% @user.answers.each do |a|%>
+  Que.  <%= link_to a.question.question, question_path(a.question) %>
+    <br/>
+  Ans. <%= a.answer%>
+  <br/>
+  <br/>
+<%end%>
+
+<hr/>
+
+<h4> Topics followed by users (<%= @user.topic_followers.count %>) <h4>
+
+<% @user.topic_followers.each do |follow|%>
+    <%=  follow.topic.name %>
+    <br/>
+  <br/>
+<%end%>

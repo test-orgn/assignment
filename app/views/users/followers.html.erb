@@ -1,0 +1,14 @@
+<h3>List of Followers </h3>
+
+<% @followers.each do |user|%>
+
+    <%= link_to user.email, user_path(user)%>
+
+<br/>
+<%end%>
+
+<br/>
+<br/>
+
+
+<%= link_to "Back", user_path(@user) %>
