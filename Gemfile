@@ -5,6 +5,8 @@ ruby '2.6.4'
 gem 'hiredis'
 gem 'redis', require: ['redis', 'redis/connection/hiredis']
 
+gem 'awesome_print'
+gem 'awesome_print-carrierwave'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
